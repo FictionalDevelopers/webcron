@@ -5,7 +5,8 @@ export function createInmemoryWebhookRepository(): WebhookRepository {
   const webhooks: Webhook[] = [];
 
   async function createWebhook(url: string): Promise<Webhook> {
-    const webhook = { url };
+    const id = `${Date.now()}`;
+    const webhook = { id, url };
 
     webhooks.push(webhook);
 

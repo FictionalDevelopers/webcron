@@ -13,7 +13,5 @@ router.post('/', async (req, res) => {
   const { body } = req;
   const webhook = await webhookService.createWebhook(body.url);
 
-  return res.json({
-    webhook,
-  });
+  return res.json(webhook);
 });

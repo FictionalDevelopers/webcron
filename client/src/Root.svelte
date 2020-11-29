@@ -7,7 +7,7 @@
 <main>
   <h1>Hello {name}!</h1>
   <button on:click={webhooksApi.getWebhooks}>Get</button>
-  <button on:click={() => webhooksApi.addWebhook(`${Date.now()}`)}>Add</button>
+  <button on:click={() => webhooksApi.createWebhook(`${Date.now()}`)}>Add</button>
 </main>
 
 <style>

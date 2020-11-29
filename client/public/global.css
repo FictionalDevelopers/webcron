@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   position: relative;
@@ -7,9 +11,6 @@ body {
 
 body {
   color: #333;
-  margin: 0;
-  padding: 8px;
-  box-sizing: border-box;
   font-family: Overpass, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans,
     Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 }
