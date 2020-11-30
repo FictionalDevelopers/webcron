@@ -1,11 +1,12 @@
-import { Webhook } from '@webcron/entities';
+import { CreateWebhookPayload, Webhook } from '@webcron/entities/webhook';
 import { Repository as WebhookRepository } from '../components/webhooks';
 
 export function createInmemoryWebhookRepository(): WebhookRepository {
   const webhooks: Webhook[] = [];
 
-  async function createWebhook(url: string): Promise<Webhook> {
-    const webhook = { url };
+  async function createWebhook(hook: CreateWebhookPayload): Promise<Webhook> {
+    const id = `${Date.now()}`;
+    const webhook = { id, ...hook };
 
     webhooks.push(webhook);
 

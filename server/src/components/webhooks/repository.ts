@@ -1,6 +1,6 @@
-import { Webhook } from '@webcron/entities';
+import { CreateWebhookPayload, Webhook } from '@webcron/entities/webhook';
 
 export interface Repository {
-  createWebhook(url: string): Promise<Webhook>;
+  createWebhook(hook: CreateWebhookPayload): Promise<Webhook>;
   getAllWebhooks(): Promise<Webhook[]>;
 }

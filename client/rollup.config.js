@@ -1,13 +1,18 @@
 import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
+import resolvePlugin from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
-import { env } from '@webcron/config';
+import { config } from 'dotenv';
+import { resolve } from 'path';
 import css from 'rollup-plugin-css-only';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import livereload from 'rollup-plugin-livereload';
 import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
+
+config({
+  path: resolve(__dirname, '../', '.env'),
+});
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -23,7 +28,7 @@ function serve() {
       if (server) return;
       server = require('child_process').spawn(
         'npm',
-        ['run', 'start', '--', '--dev'],
+        ['run', 'start:client', '--', '--dev'],
         {
           stdio: ['ignore', 'inherit', 'inherit'],
           shell: true,
@@ -61,7 +66,7 @@ export default {
     // some cases you'll need additional configuration -
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve({
+    resolvePlugin({
       browser: true,
       dedupe: ['svelte'],
     }),
@@ -69,9 +74,10 @@ export default {
     typescript({
       sourceMap: !production,
       inlineSources: !production,
+      include: /\.ts/,
     }),
     injectProcessEnv({
-      SERVER_URL: env.SERVER_URL,
+      SERVER_URL: process.env.SERVER_URL,
     }),
 
     // In dev mode, call `npm run start` once
