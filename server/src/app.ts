@@ -1,7 +1,6 @@
-import { CLIENT_URL } from '@webcron/config/dist/env';
-import * as express from 'express';
-import * as cors from 'cors';
-
+import { CLIENT_URL } from '@webcron/config/env';
+import cors from 'cors';
+import express from 'express';
 import { router as webhooksRouter } from './components/webhooks';
 
 interface Options {

@@ -3,8 +3,8 @@
   import NewCronForm from './components/NewCronForm.svelte';
   import CronList from './components/CronList.svelte';
   import { Page } from './components/pages';
-  import type { CreateCronEventPayload } from './components/events';
   import { addWebhook, api } from './webhooks';
+  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
 
   let currentPage = Page.List;
 
@@ -12,8 +12,8 @@
     currentPage = page;
   }
 
-  async function handleCreateCron({ detail }: CustomEvent<CreateCronEventPayload>) {
-    const hook = await api.createWebhook(detail.url);
+  async function handleCreateCron({ detail }: CustomEvent<CreateWebhookPayload>) {
+    const hook = await api.createWebhook(detail);
     addWebhook(hook);
     setPage(Page.List);
   }

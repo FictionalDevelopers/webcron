@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Webhook } from '@webcron/entities';
+  import type { Webhook } from '@webcron/entities/webhook';
   import { webhookStore } from '../webhooks';
 
   let webhooks: Webhook[];
@@ -8,9 +8,9 @@
 </script>
 
 <ul>
-  {#each webhooks as { url, id } (id)}
+  {#each webhooks as { url, schedule, id } (id)}
     <li>
-      {url}
+      {url} - {schedule}
     </li>
   {/each}
 </ul>
