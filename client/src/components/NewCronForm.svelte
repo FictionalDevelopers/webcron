@@ -1,8 +1,14 @@
 <h1>New crone</h1>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <label for="url">Callback url</label>
-  <input id="url" type="text" name="url" bind:value={url}>
+  <div>
+    <label for="url">Callback url</label>
+    <input id="url" type="text" name="url" bind:value={webhook.url}>
+  </div>
+  <div>
+    <label for="schedule">Callback schedule</label>
+    <input id="schedule" type="text" name="schedule" bind:value={webhook.schedule}>
+  </div>
   <footer>
     <button>Create</button>
   </footer>
@@ -10,16 +16,20 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { CreateCronEventPayload } from './events';
+  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
 
-  const dispatch = createEventDispatcher<{ create: CreateCronEventPayload }>();
+  const dispatch = createEventDispatcher<{ create: CreateWebhookPayload }>();
 
-  let url = '';
+  let webhook: CreateWebhookPayload = {
+    url: '',
+    schedule: '',
+  };
 
   function handleSubmit() {
-    dispatch('create', { url })
+    dispatch('create', webhook);
 
-    url = '';
+    webhook.url = '';
+    webhook.schedule = '';
   }
 </script>
 

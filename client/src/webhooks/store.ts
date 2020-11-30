@@ -1,4 +1,4 @@
-import type { Webhook } from '@webcron/entities';
+import type { Webhook } from '@webcron/entities/webhook';
 import { Readable, writable } from 'svelte/store';
 import { getWebhooks } from './api';
 

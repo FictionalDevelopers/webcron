@@ -1,4 +1,5 @@
-import { env } from '@webcron/config';
+import 'module-alias/register';
+import { SERVER_PORT } from '@webcron/config/env';
 import { run } from './app';
 
-run({ port: env.SERVER_PORT });
+run({ port: SERVER_PORT });

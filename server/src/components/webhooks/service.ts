@@ -1,4 +1,5 @@
 import { Repository } from './repository';
+import { CreateWebhookPayload } from '@webcron/entities/webhook';
 
 export function WebhookService(webhookRepository: Repository) {
   return {
@@ -8,8 +9,8 @@ export function WebhookService(webhookRepository: Repository) {
 }
 
 function createWebhook(webhookRepository: Repository) {
-  return (url: string) => {
-    return webhookRepository.createWebhook(url);
+  return (hook: CreateWebhookPayload) => {
+    return webhookRepository.createWebhook(hook);
   };
 }
 
