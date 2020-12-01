@@ -1,8 +1,8 @@
 import { WebhookService } from './service';
-import { webhookRepository } from '../../dependencies';
+import { webhookRepository, unixCrontabAdapter } from '../../dependencies';
 
 export { Repository } from './repository';
 export { router } from './router';
 
-export const service = WebhookService(webhookRepository);
+export const service = WebhookService(webhookRepository, unixCrontabAdapter);
 
