@@ -1,10 +1,11 @@
 <script lang="ts">
+  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
   import Sidebar from './components/Sidebar.svelte';
   import NewCronForm from './components/NewCronForm.svelte';
   import CronList from './components/CronList.svelte';
   import { Page } from './components/pages';
   import { addWebhook, api } from './webhooks';
-  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
+  import { NotificationsContainer, notify } from './notifications';
 
   let currentPage = Page.List;
 
@@ -13,9 +14,16 @@
   }
 
   async function handleCreateCron({ detail }: CustomEvent<CreateWebhookPayload>) {
-    const hook = await api.createWebhook(detail);
-    addWebhook(hook);
-    setPage(Page.List);
+    const dismissCreation = notify.message('Creating...');
+    try {
+      const hook = await api.createWebhook(detail);
+      addWebhook(hook);
+      setPage(Page.List);
+      notify.success('Successfully created', { timeout: 2000, dismissAll: true });
+    } catch (e) {
+      notify.error(e.message);
+    }
+    dismissCreation();
   }
 </script>
 
@@ -30,6 +38,7 @@
       <NewCronForm on:create={handleCreateCron} />
     {/if}
   </main>
+  <NotificationsContainer />
 </div>
 
 <style>
