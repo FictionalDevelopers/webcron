@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
+  import type { CreateWebhookPayload } from '../entities/webhook';
 
   const dispatch = createEventDispatcher<{ create: CreateWebhookPayload }>();
 

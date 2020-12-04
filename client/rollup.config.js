@@ -1,14 +1,14 @@
+import { resolve } from 'path';
+import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolvePlugin from '@rollup/plugin-node-resolve';
-import typescript from '@rollup/plugin-typescript';
-import { config } from 'dotenv';
-import { resolve } from 'path';
-import css from 'rollup-plugin-css-only';
-import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import livereload from 'rollup-plugin-livereload';
-import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
+import typescript from '@rollup/plugin-typescript';
+import css from 'rollup-plugin-css-only';
+import { config } from 'dotenv';
+import injectProcessEnv from 'rollup-plugin-inject-process-env';
 
 config({
   path: resolve(__dirname, '../', '.env'),
@@ -20,20 +20,20 @@ function serve() {
   let server;
 
   function toExit() {
-    if (server) server.kill(0);
+    if (server) {
+      server.kill(0);
+    }
   }
 
   return {
     writeBundle() {
-      if (server) return;
-      server = require('child_process').spawn(
-        'npm',
-        ['run', 'start:client', '--', '--dev'],
-        {
-          stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true,
-        },
-      );
+      if (server) {
+        return;
+      }
+      server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+        stdio: ['ignore', 'inherit', 'inherit'],
+        shell: true,
+      });
 
       process.on('SIGTERM', toExit);
       process.on('exit', toExit);
@@ -66,7 +66,7 @@ export default {
     // some cases you'll need additional configuration -
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolvePlugin({
+		resolvePlugin({
       browser: true,
       dedupe: ['svelte'],
     }),
@@ -74,10 +74,9 @@ export default {
     typescript({
       sourceMap: !production,
       inlineSources: !production,
-      include: /\.ts/,
     }),
     injectProcessEnv({
-      SERVER_URL: process.env.SERVER_URL,
+      API_URL: process.env.API_URL,
     }),
 
     // In dev mode, call `npm run start` once
@@ -93,6 +92,6 @@ export default {
     production && terser(),
   ],
   watch: {
-    clearScreen: false,
-  },
+    clearScreen: false
+  }
 };
