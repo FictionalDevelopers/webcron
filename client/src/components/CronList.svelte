@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Webhook } from '@webcron/entities/webhook';
   import { webhookStore } from '../webhooks';
+  import type { Webhook } from '../entities/webhook';
 
   let webhooks: Webhook[];
 

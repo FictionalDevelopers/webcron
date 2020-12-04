@@ -1,16 +1,6 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "..",
-    "paths": {
-      "@webcron/config/*": [
-        "config/src/*"
-      ],
-      "@webcron/entities/*": [
-        "entities/src/*"
-      ]
-    }
-  },
-  "include": ["src/**/*", "../entities/src/*"],
+
+  "include": ["src/**/*"],
   "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
 }
