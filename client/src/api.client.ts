@@ -14,7 +14,13 @@ export function isJsonResponse(response: Response): boolean {
   return contentType.includes('application/json');
 }
 
-export async function handleError({ response }: { response: Response }) {
+export async function handleError({ response }: { response?: Response }) {
+  if (!response) {
+    return Promise.reject({
+      message: 'Something went wrong.',
+    });
+  }
+
   if (isJsonResponse(response)) {
     return Promise.reject(await response.json());
   }
