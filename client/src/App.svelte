@@ -19,7 +19,7 @@
       const hook = await api.createWebhook(detail);
       addWebhook(hook);
       setPage(Page.List);
-      notify.success('Successfully created', { timeout: 2000, dismissAll: true });
+      notify.success('Successfully created.', { timeout: 2000, dismissAll: true });
     } catch (e) {
       notify.error(e.message);
     }
