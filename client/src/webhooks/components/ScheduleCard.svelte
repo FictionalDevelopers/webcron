@@ -1,7 +1,5 @@
 <script lang="ts">
   import format from 'date-fns/format';
-  import formatDuration from 'date-fns/formatDuration';
-  import intervalToDuration from 'date-fns/intervalToDuration';
   import Card from '../../components/Card.svelte';
   import { Duration } from '../../time';
   import { api as cronApi } from '../../cron';
@@ -26,15 +24,6 @@
   const select = () => {
     selected = !selected;
   };
-
-  function getTimer(start: number, end: number) {
-    return formatDuration(
-      intervalToDuration({
-        start,
-        end,
-      })
-    );
-  }
 </script>
 
 <Card>

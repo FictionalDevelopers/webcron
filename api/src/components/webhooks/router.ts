@@ -15,11 +15,11 @@ export const getWebhooks = functions.region('europe-west1').https.onRequest(
 export const addWebhook = functions.region('europe-west1').https.onRequest(
   handleRequest(async (req, res) => {
     const {
-      body: { url, schedule },
+      body: { url, schedule, name },
     } = req;
 
-    if (!url || !schedule) {
-      throw new ApplicationError('Url and schedule are required.');
+    if (!name || !url || !schedule) {
+      throw new ApplicationError('Url, schedule and name are required.');
     }
 
     try {
@@ -28,7 +28,7 @@ export const addWebhook = functions.region('europe-west1').https.onRequest(
       throw new ApplicationError('Invalid schedule expression');
     }
 
-    const webhook = await webhookService.createWebhook({ url, schedule });
+    const webhook = await webhookService.createWebhook({ url, schedule, name });
 
     res.json(webhook);
   }),
