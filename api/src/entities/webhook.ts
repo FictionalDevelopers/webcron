@@ -1,5 +1,6 @@
 export type Webhook = {
   id: string;
+  name: string;
   url: string;
   schedule: string;
 };

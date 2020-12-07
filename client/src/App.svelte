@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { CreateWebhookPayload } from '@webcron/entities/webhook';
   import Sidebar from './components/Sidebar.svelte';
   import NewCronForm from './components/NewCronForm.svelte';
-  import CronList from './components/CronList.svelte';
   import { Page } from './components/pages';
   import { addWebhook, api } from './webhooks';
+  import ScheduleList from './webhooks/components/ScheduleList.svelte';
   import { NotificationsContainer, notify } from './notifications';
+  import type { CreateWebhookPayload } from './entities/webhook';
 
   let currentPage = Page.List;
 
@@ -33,7 +33,7 @@
   </aside>
   <main>
     {#if currentPage === Page.List}
-      <CronList />
+      <ScheduleList />
     {:else if currentPage === Page.New}
       <NewCronForm on:create={handleCreateCron} />
     {/if}
@@ -55,5 +55,6 @@
     main {
         padding: 15px;
         flex-grow: 1;
+        background-color: #fafafa;
     }
 </style>

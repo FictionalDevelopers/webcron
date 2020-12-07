@@ -6,5 +6,5 @@ export async function createWebhook(hook: CreateWebhookPayload) {
 }
 
 export async function getWebhooks() {
-  return api.get('getWebhooks').json();
+  return api.get('getWebhooks').json().catch(handleError);
 }

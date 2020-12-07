@@ -1,0 +1,21 @@
+{
+  "name": "webcron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "npm --prefix client run dev",
+    "start:server": "firebase emulators:start --only functions,firestore"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FictionalDevelopers/webcron.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FictionalDevelopers/webcron/issues"
+  },
+  "homepage": "https://github.com/FictionalDevelopers/webcron#readme"
+}
