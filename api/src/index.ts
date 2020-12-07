@@ -9,3 +9,5 @@ export {
 export {
   getNextDateForSchedule,
 } from './components/cron/router';
+
+export { schedule } from './components/cron/schedule';
