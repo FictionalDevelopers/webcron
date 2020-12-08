@@ -13,7 +13,7 @@ export const routes = {
   getNextDateForSchedule,
 };
 
-export const cron = { schedule, fireHooks: fireWebhook };
+export const cron = { schedule, fireWebhook };
 
 export const testFunction = functions.region('europe-west1').https.onRequest(
   handleRequest(async (req, res) => {
