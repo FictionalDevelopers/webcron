@@ -2,7 +2,7 @@
   "name": "functions",
   "scripts": {
     "build": "tsc",
-    "serve": "npm run build && firebase emulators:start --only functions,firestore",
+    "emulate": "npm run build && firebase emulators:start --only functions,firestore",
     "shell": "npm run build && firebase functions:shell --port 5001",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",

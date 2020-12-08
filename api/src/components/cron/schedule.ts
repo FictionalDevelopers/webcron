@@ -3,6 +3,7 @@ import * as admin from 'firebase-admin';
 import { PubSub } from '@google-cloud/pubsub';
 import { parseExpression } from 'cron-parser';
 import { get }  from 'superagent';
+import { WebhookHistoryEntry } from '../../entities/webhook-history';
 
 const client = new PubSub();
 
@@ -52,28 +53,37 @@ export const fireWebhook = functions
     try {
       await get(url);
       const response = await get(url);
+
+      const successHistoryEntry: WebhookHistoryEntry = {
+        webhookId: id,
+        time: Date.now(),
+        statusCode: response.status,
+        body: response.text,
+        url,
+      };
+
       await admin
         .firestore()
         .collection('webhooks-history')
-        .add({
-          webhookId: id,
-          time: Date.now(),
-          statusCode: response.status,
-          body: response.text,
-          url,
-        });
+        .doc(id)
+        .collection('calls')
+        .add(successHistoryEntry);
     } catch (error) {
+      const errorHistoryEntry: WebhookHistoryEntry = {
+        errorMessage: error.message,
+        webhookId: id,
+        time: Date.now(),
+        statusCode: error.status,
+        body: error.response.text,
+        url,
+      };
+
       await admin
         .firestore()
         .collection('webhooks-history')
-        .add({
-          errorMessage: error.message,
-          webhookId: id,
-          time: Date.now(),
-          statusCode: error.status,
-          body: error.response.text,
-          url,
-        });
+        .doc(id)
+        .collection('calls')
+        .add(errorHistoryEntry);
     }
 
     await admin.firestore()

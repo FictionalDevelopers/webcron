@@ -1,5 +1,5 @@
 import * as admin from 'firebase-admin';
-import { addWebhook, getWebhooks, } from './components/webhooks/router';
+import { addWebhook, getHistory, getWebhooks } from './components/webhooks/router';
 import { getNextDateForSchedule, } from './components/cron/router';
 import { fireWebhook, schedule } from './components/cron/schedule';
 import * as functions from 'firebase-functions';
@@ -11,6 +11,7 @@ export const routes = {
   addWebhook,
   getWebhooks,
   getNextDateForSchedule,
+  getHistory,
 };
 
 export const cron = { schedule, fireWebhook };

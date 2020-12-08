@@ -33,3 +33,24 @@ export const addWebhook = functions.region('europe-west1').https.onRequest(
     res.json(webhook);
   }),
 );
+
+export const getHistory = functions.region('europe-west1').https.onRequest(
+  handleRequest(async (req, res) => {
+    const {
+      query: { id: idParam },
+    } = req;
+
+    console.log({idParam});
+
+
+    if (!idParam) {
+      throw new ApplicationError('Id is required required.');
+    }
+
+    const id = typeof idParam === 'string' ? idParam : idParam.toString();
+
+    const webhook = await webhookService.getHistory(id);
+
+    res.json(webhook);
+  }),
+);
