@@ -1,13 +1,14 @@
 import * as admin from 'firebase-admin';
+import { addWebhook, getWebhooks, } from './components/webhooks/router';
+import { getNextDateForSchedule, } from './components/cron/router';
+import { fireHooks, schedule } from './components/cron/schedule';
 
 admin.initializeApp();
 
-export {
+export const routes = {
   addWebhook,
   getWebhooks,
-} from './components/webhooks/router';
-export {
   getNextDateForSchedule,
-} from './components/cron/router';
+};
 
-export { schedule } from './components/cron/schedule';
+export const cron = { schedule, fireHooks };
