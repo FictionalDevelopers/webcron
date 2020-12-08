@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import { PubSub } from '@google-cloud/pubsub';
 import { parseExpression } from 'cron-parser';
+import { get }  from 'superagent';
 
 const client = new PubSub();
 
@@ -39,7 +40,7 @@ export const schedule = functions
     );
   });
 
-export const fireHooks = functions
+export const fireWebhook = functions
   .region('europe-west1')
   .pubsub
   .topic(FIRE_HOOK)
@@ -48,14 +49,32 @@ export const fireHooks = functions
     const cron = parseExpression(schedule);
     const nextTime = cron.next().getTime();
 
-    await admin
-      .firestore()
-      .collection('webhooks-requests')
-      .add({
-        webhookId: id,
-        time: Date.now(),
-        url,
-      });
+    try {
+      await get(url);
+      const response = await get(url);
+      await admin
+        .firestore()
+        .collection('webhooks-history')
+        .add({
+          webhookId: id,
+          time: Date.now(),
+          statusCode: response.status,
+          body: response.text,
+          url,
+        });
+    } catch (error) {
+      await admin
+        .firestore()
+        .collection('webhooks-history')
+        .add({
+          errorMessage: error.message,
+          webhookId: id,
+          time: Date.now(),
+          statusCode: error.status,
+          body: error.response.text,
+          url,
+        });
+    }
 
     await admin.firestore()
       .collection('webhooks')
