@@ -48,7 +48,7 @@
         {:then { next: estimation }}
           <p>
             <span class="next-label">Next expected time:</span>
-            <span>{format(new Date(estimation), 'do MMM yyyy \'at\' hh:mm')}</span>
+            <span>{format(new Date(estimation), 'do MMM yyyy \'at\' HH:mm')}</span>
           </p>
           <p>
             <Duration endTime={estimation} let:time={now} let:duration={duration}>
