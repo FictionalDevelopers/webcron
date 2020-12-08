@@ -18,10 +18,12 @@
     "cron-parser": "^2.18.0",
     "date-fns": "^2.16.1",
     "firebase-admin": "^9.2.0",
-    "firebase-functions": "^3.11.0"
+    "firebase-functions": "^3.11.0",
+    "superagent": "^6.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.8",
+    "@types/superagent": "^4.1.10",
     "firebase-functions-test": "^0.2.0",
     "typescript": "^3.8.0"
   },
