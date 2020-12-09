@@ -4,13 +4,24 @@
   import { Page } from './components/pages';
   import { addWebhook, api } from './webhooks';
   import ScheduleList from './webhooks/components/ScheduleList.svelte';
+  import WebhookDetails from './webhooks/components/WebhookDetails.svelte';
   import { NotificationsContainer, notify } from './notifications';
-  import type { CreateWebhookPayload } from './entities/webhook';
+  import type { CreateWebhookPayload, Webhook } from './entities/webhook';
 
   let currentPage = Page.List;
+  let selectedWebhook: Webhook | null = null;
 
   function setPage(page: Page) {
     currentPage = page;
+
+    if (page !== Page.Details) {
+      selectedWebhook = null;
+    }
+  }
+
+  function handleSelect(webhook: CustomEvent<Webhook>) {
+    setPage(Page.Details);
+    selectedWebhook = webhook.detail;
   }
 
   async function handleCreateCron({ detail }: CustomEvent<CreateWebhookPayload>) {
@@ -33,9 +44,11 @@
   </aside>
   <main>
     {#if currentPage === Page.List}
-      <ScheduleList />
+      <ScheduleList on:select={handleSelect} />
     {:else if currentPage === Page.New}
       <NewCronForm on:create={handleCreateCron} />
+    {:else if currentPage === Page.Details}
+      <WebhookDetails webhook={selectedWebhook} />
     {/if}
   </main>
   <NotificationsContainer />
@@ -56,5 +69,7 @@
         padding: 15px;
         flex-grow: 1;
         background-color: #fafafa;
+        max-height: 100vh;
+        overflow-y: auto;
     }
 </style>

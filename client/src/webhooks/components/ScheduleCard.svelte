@@ -1,9 +1,10 @@
 <script lang="ts">
+  import {createEventDispatcher} from 'svelte';
   import format from 'date-fns/format';
   import Card from '../../components/Card.svelte';
   import { Duration } from '../../time';
   import { api as cronApi } from '../../cron';
-  import type { Webhook } from '../../entities/webhook';
+  import type { Webhook } from '../../entities';
 
   export let webhook: Webhook;
 
@@ -21,13 +22,14 @@
     copied = false;
   }
 
+  const dispatch = createEventDispatcher<{ select: Webhook }>();
   const select = () => {
-    selected = !selected;
+    dispatch('select', webhook);
   };
 </script>
 
 <Card>
-  <section class:selected>
+  <section>
     <header>
       <h2 class="name" on:click={select}>{webhook.name}</h2>
       <div class="schedule" on:click={copy} on:mouseleave={scheduleOut}>

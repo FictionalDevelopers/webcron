@@ -1,7 +1,7 @@
 <script lang="ts">
   import ScheduleCard from './ScheduleCard.svelte';
   import { webhookStore } from '../store';
-  import type { Webhook } from '../../entities/webhook';
+  import type { Webhook } from '../../entities';
 
   let webhooks: Webhook[];
 
@@ -15,7 +15,7 @@
   <div class="cards">
     {#each webhooks as webhook (webhook.id)}
       <div class="card">
-        <ScheduleCard webhook={webhook} />
+        <ScheduleCard on:select webhook={webhook} />
       </div>
     {/each}
   </div>

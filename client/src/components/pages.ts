@@ -1,4 +1,5 @@
 export enum Page {
   List,
-  New
+  New,
+  Details,
 }
